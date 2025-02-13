@@ -1,3 +1,7 @@
+
+**<span style="color:#56adda">0.0.11</span>**
+- remove note in description.md about plugin not having a file test section - a file test section was added in v0.0.8
+
 **<span style="color:#56adda">0.0.10</span>**
 - Added user of .unmanic file to track processed files
 
