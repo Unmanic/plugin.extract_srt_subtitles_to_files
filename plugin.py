@@ -220,12 +220,15 @@ def on_library_management_file_test(data):
     mapper.set_settings(settings)
     mapper.set_probe(probe)
 
-    if not srt_already_extracted(settings, abspath):
-        # Mark this file to be added to the pending tasks
-        data['add_file_to_pending_tasks'] = True
-        logger.debug("File '{}' should be added to task list. File has not been previously had SRT extracted.".format(abspath))
+    if mapper.streams_need_processing():
+        if not srt_already_extracted(settings, abspath):
+            # Mark this file to be added to the pending tasks
+            data['add_file_to_pending_tasks'] = True
+            logger.debug("File '{}' should be added to task list. File has text subtitles that have not previously been extract to SRT files.".format(abspath))
+        else:
+            logger.debug("File '{}' has previously had text subtitles extracted as SRT files.".format(abspath))
     else:
-        logger.debug("File '{}' has been previously had SRT extracted.".format(abspath))                           
+        logger.debug("File '{}' does not contain streams require processing.".format(abspath))
 
     return data
 
@@ -349,7 +352,7 @@ def on_postprocessor_task_results(data):
                 subs = [i for i in subs if i in langs]
             subs = ' '.join(subs)
         else:
-            subs=""
+            subs="true"
         directory_info = UnmanicDirectoryInfo(os.path.dirname(destination_file))
         directory_info.set('extract_srt_subtitles_to_files', os.path.basename(destination_file), subs)
         directory_info.save()

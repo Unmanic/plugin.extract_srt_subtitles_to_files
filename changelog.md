@@ -1,4 +1,8 @@
 
+**<span style="color:#56adda">0.0.12</span>**
+- add back in file test check for presence of text subtitles
+- change text of what is written in .unmanic file to prevent against empty string in cases where remove all subtitles is run in same library
+
 **<span style="color:#56adda">0.0.11</span>**
 - remove note in description.md about plugin not having a file test section - a file test section was added in v0.0.8
 
